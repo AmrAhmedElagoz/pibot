@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Chatbot Alpha</title>
+        <style> * {
+            font-size: 30px;
+            max-width: 500px;
+            margin-top: 20px;
+            margin-right: auto;
+            margin-bottom: auto;
+            margin-left: auto;
+        
+        }</style>
+    </head>
+<body>
+    Pi-Bot<br/>
+	Developed By: Electro-Pi<br/>
+    <br/>
+    Please Specify the Topic<br/>
+    <style> 
+        textarea {
+        width: 100%;
+        height: 200px;
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        font-size: 16px;
+        resize: none;
+        }
+    </style>
+    <input id="Title" placeholder="Enter the Topic" type='text'>
+    <form action="{{url_for('chat')}}" method="POST"> 
+        <textarea id="textbox" name="textbox"></textarea>
+        <button id="submit" type="button" name="submit">Submit</button>
+    </form>
+    <!-- <button id="submit" type="submit" name="submit">Submit</button> -->
+    <p></p>
+    <p id="output_response"></p>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>            
+        $("#submit").click(function(event){
+            let _title = $("#Title").val();
+            let context = $("#textbox").val();   
+            let message = {
+                "_title": _title,
+                "context": context
+            }
+            console.log(_title)
+            console.log(context)
+            $.post("http://127.0.0.1:5000/chat", JSON.stringify(message), function(resp){
+                $("#output_response").text('Response for '+context+' is '+resp.Res)
+                // console.log(resp);               
+            });
+        });
+    </script>
+</body>
+
+</html>
