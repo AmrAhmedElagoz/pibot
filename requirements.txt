@@ -2,3 +2,4 @@ numpy==1.19.5
 arabert==1.0.1
 requests==2.25.1
 transformers==4.17.0
+tensorflow==2.8.2

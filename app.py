@@ -20,7 +20,7 @@ def chat():
     print(cache)
 
     q= 'ما هو سعر البظيخ؟'
-
+    
     prediction = qa(q, context)   
     # prediction= 'pass'
     print(prediction)
