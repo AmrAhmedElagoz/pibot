@@ -1,13 +1,13 @@
-import numpy as np
 from flask import Flask, request, jsonify, render_template
-from transformers import pipeline
+from model import qa
 
 app = Flask(__name__, static_url_path='/static')
-# model = pipeline('question-answering',model='ZeyadAhmed/AraElectra-Arabic-SQuADv2-QA')
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+cache= dict()
 
 @app.route('/chat',methods=['POST'])
 def chat():
@@ -16,11 +16,15 @@ def chat():
     print(title)
     context = request.get_json(force=True)['context']
     print(context)
+    cache[str(title)] = str(context)
+    print(cache)
 
-    # prediction = model.predict([context])   
-    prediction= 'pass'
+    q= 'ما هو سعر البظيخ؟'
+
+    prediction = qa(q, context)   
+    # prediction= 'pass'
     print(prediction)
-    resp = jsonify({"Res": prediction})
+    resp = jsonify({"Res": prediction['answer']})
     # b= resp.json
     # print(b)
     # print(b['Res'])
