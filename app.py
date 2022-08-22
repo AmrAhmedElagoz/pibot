@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 from model import qa
+import tag_classification
+
 
 app = Flask(__name__, static_url_path='/static')
 
